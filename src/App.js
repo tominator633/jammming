@@ -3,7 +3,7 @@ import SearchBar from './SearchBar/SearchBar';
 import SearchResults from './SearchResults/SearchResults';
 import Playlist from './Playlist/Playlist';
 import styles from "./App.module.css";
-import Spotify from './spotify';
+import Spotify from './spotify/spotify';
 
 
 
@@ -28,6 +28,7 @@ function App() {
   const [playlistName, setPlaylistName] = useState("");
   const [tracklist, setTracklist] = useState([]);
   const [searchImput, setSearchImput] = useState("");
+/*   const [urisArr, setUrisArr] = useState([]); */
 /* 
 THIS FUNCTION TOOOK ME ONE DAY TO FIGURE OUT---
 FIRST I USED PREV IN THE CONDITION - BUT 
@@ -38,19 +39,20 @@ A NEW ARRAY REPLACES THE OLD ONE. THATS WHY PUSH() D
 OES NOT WORK EITHER!!! */
 function addTrack (track) {
 if (!tracklist.includes(track)) {
-  setTracklist((prev) => [...prev, track])
+  setTracklist((prev) => [...prev, track]);
+/*   setUrisArr((prev) => [...prev, track.uri]); */
 }
 }
 
 function removeTrack (track) {
 if (tracklist.includes(track)) {
-  setTracklist((prev) => prev.filter((song) => song !== track))
+  setTracklist((prev) => prev.filter((song) => song !== track));
+ /*  setUrisArr((prev) => prev.filter((uri) => uri !== track.uri)); */
 }
 }
 
 const gatherPlaylistUri = () => {
-  const playlistUriArr = tracklist.map((song) => song.uri);
-  return playlistUriArr;
+      return tracklist.map((song) => song.uri);
 };
 const emptyTracklist = () => {
   setTracklist([]);
@@ -76,6 +78,10 @@ whenever we call a promise, we get its state - fulfiled/pending
 then method says, that after the promise settles I WILL DO THIS.
 if await is not possible to use here, use then() - it does the same.
  */
+const sendPlaylist = () => {
+  const urisArr = gatherPlaylistUri();
+  Spotify.addTracksToNewPlaylist(playlistName,urisArr);
+}
 
   return (
     <>
@@ -93,8 +99,9 @@ if await is not possible to use here, use then() - it does the same.
                 setPlaylistName={setPlaylistName}
                 tracklist={tracklist}
                 removeTrack={removeTrack}
-                gatherPlaylistUri={gatherPlaylistUri}
+                sendPlaylist={sendPlaylist}
                 emptyTracklist={emptyTracklist}
+             
                
                 />
     </section>

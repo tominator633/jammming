@@ -13,7 +13,9 @@ const handleClickRemoveTrack = () => {
 
 return (
       <div id={styles.track}>
-        <figure id={styles.cover}></figure>
+        <figure id={styles.cover}>
+          <img id={styles.coverImg} src={props.img} alt={props.name}/>
+        </figure>
         <div id={styles.trackInfo}>
           <h3 id={styles.trackName}>{props.name}</h3>
           <h4 id={styles.artistAlbum}>{props.artist} | {props.album}</h4>

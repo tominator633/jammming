@@ -13,6 +13,7 @@ return (
                     album={song.album} 
                     key={song.id}
                     id={song.id}
+                    img={song.img}
                     song={song}
                     addTrack={props.addTrack}
                     buttonSign="+"

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import styles from "./Playlist.module.css";
 import Track from "../Track/Track";
 
@@ -9,7 +9,7 @@ function Playlist (props) {
   }
 
   const handleClick = () => {
-    props.gatherPlaylistUri();
+    props.sendPlaylist();
     props.emptyTracklist();
   }
 
@@ -27,7 +27,8 @@ return (
                                       artist={song.artist} 
                                       album={song.album} 
                                       key={song.id} 
-                                      id={song.id} 
+                                      id={song.id}
+                                      img={song.img}
                                       song={song}
                                       uri={song.uri}
                                       removeTrack={props.removeTrack}
