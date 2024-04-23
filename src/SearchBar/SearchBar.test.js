@@ -7,8 +7,9 @@ import userEvent from "@testing-library/user-event";
 
 it("should be rendered in the document", () => {
 
-render(<SearchBar/>);
+render(<SearchBar search={()=>{}}
+    searchImput={()=>{}}
+    setSearchImput={()=>{}}/>);
 screen.debug();
-
 
 });
