@@ -82,12 +82,22 @@ const sendPlaylist = () => {
   const urisArr = gatherPlaylistUri();
   Spotify.addTracksToNewPlaylist(playlistName,urisArr);
 }
+/* SearchBar */
+const handleSearchFieldChange = (event) => {
+  setSearchImput(event.target.value);
+}
+const handleSearchFieldSubmit = (event) => {
+  event.preventDefault();
+  search();
+}
+
 
   return (
     <>
-    <SearchBar search={search}
-                searchImput={searchImput}
-                setSearchImput={setSearchImput}/>
+    <SearchBar  searchImput={searchImput}
+                onChange={handleSearchFieldChange}
+                onSubmit={handleSearchFieldSubmit}
+                  />
 
     <section id={styles.resultsPlaylistCON}>
 
