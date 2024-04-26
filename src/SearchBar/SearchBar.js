@@ -3,33 +3,27 @@ import styles from "./SearchBar.module.css"
 
 function SearchBar (props) {
 
-const handleChange = (event) => {
-    props.setSearchImput(event.target.value);
-}
-
-const handleSubmit = (event) => {
-    event.preventDefault();
-    props.search();
-}
-
     return (
     <form 
-        onSubmit={handleSubmit}
+        onSubmit={props.onSubmit}
         id={styles.searchBarForm}
        /*  method="POST" 
         action="#" */ >
         <input 
             type="search"
+            aria-label="song search field"
             id={styles.songSearchField}
             placeholder="enter a song title"
             name="song"
-            onChange={handleChange}
+            onChange={props.onChange}
             value={props.searchImput}
              />
 
         <button 
             id={styles.songSearchSubmit}
-            type="submit">
+            type="submit"
+            aria-label="submit"
+            alt="submit">
                 <svg 
                     id={styles.songSearchSubmitSVG}
                     xmlns="http://www.w3.org/2000/svg" 

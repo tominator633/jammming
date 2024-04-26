@@ -4,6 +4,7 @@ import SearchResults from './SearchResults/SearchResults';
 import Playlist from './Playlist/Playlist';
 import styles from "./App.module.css";
 import Spotify from './spotify/spotify';
+import { eventWrapper } from '@testing-library/user-event/dist/utils';
 
 
 
@@ -82,12 +83,21 @@ const sendPlaylist = () => {
   const urisArr = gatherPlaylistUri();
   Spotify.addTracksToNewPlaylist(playlistName,urisArr);
 }
+const handleSearchBarChange = (event) => {
+  setSearchImput(event.target.value);
+}
+const handleSearchBarSubmit = (event) => {
+  event.preventDefault();
+  search();
+}
+
 
   return (
     <>
-    <SearchBar search={search}
+    <SearchBar onChange={handleSearchBarChange}
+                onSubmit={handleSearchBarSubmit}
                 searchImput={searchImput}
-                setSearchImput={setSearchImput}/>
+               />
 
     <section id={styles.resultsPlaylistCON}>
 

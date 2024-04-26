@@ -6,9 +6,11 @@ import userEvent from "@testing-library/user-event";
 
 
 it("should be rendered in the document", () => {
+render(<SearchBar searchImput={"dinero"}/>);
 
-render(<SearchBar/>);
-screen.debug();
-
-
+const searchField = screen.getByRole("searchbox", {name: /song search field/i});
+expect(searchField).toBeInTheDocument();
+expect(searchField).toHaveValue("dinero");
+const searchButton = screen.getByRole("button", {name: /submit/i});
+expect(searchButton).toBeInTheDocument();
 });
