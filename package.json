@@ -36,6 +36,7 @@
     ]
   },
   "devDependencies": {
-    "mocha": "^10.3.0"
+    "jest": "^27.5.1",
+    "jest-environment-jsdom": "^29.7.0"
   }
 }

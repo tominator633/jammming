@@ -83,10 +83,18 @@ const sendPlaylist = () => {
   const urisArr = gatherPlaylistUri();
   Spotify.addTracksToNewPlaylist(playlistName,urisArr);
 }
+<<<<<<< HEAD
 const handleSearchBarChange = (event) => {
   setSearchImput(event.target.value);
 }
 const handleSearchBarSubmit = (event) => {
+=======
+/* SearchBar */
+const handleSearchFieldChange = (event) => {
+  setSearchImput(event.target.value);
+}
+const handleSearchFieldSubmit = (event) => {
+>>>>>>> 997bb0bf4888dcb62ca0989d958ad8ef917a2410
   event.preventDefault();
   search();
 }
@@ -94,10 +102,17 @@ const handleSearchBarSubmit = (event) => {
 
   return (
     <>
+<<<<<<< HEAD
     <SearchBar onChange={handleSearchBarChange}
                 onSubmit={handleSearchBarSubmit}
                 searchImput={searchImput}
                />
+=======
+    <SearchBar  searchImput={searchImput}
+                onChange={handleSearchFieldChange}
+                onSubmit={handleSearchFieldSubmit}
+                  />
+>>>>>>> 997bb0bf4888dcb62ca0989d958ad8ef917a2410
 
     <section id={styles.resultsPlaylistCON}>
 
