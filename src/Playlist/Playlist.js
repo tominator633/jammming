@@ -4,21 +4,12 @@ import Track from "../Track/Track";
 
 function Playlist (props) {
 
-  const handleChange = (event) => {
-    props.setPlaylistName(event.target.value);
-  }
-
-  const handleClick = () => {
-    props.sendPlaylist();
-    props.emptyTracklist();
-  }
-
 return (
     <div id={styles.playlistCON}>
     <input id={styles.playlistName} 
             type="text"
             placeholder="name your playlist"
-            onChange={handleChange}
+            onChange={props.onChange}
             value={props.playlistName}
             />
 
@@ -36,7 +27,7 @@ return (
                                       />)} 
 
     <button id={styles.savePlaylist}
-            onClick={handleClick}
+            onClick={props.onClick}
     >Save to Spotify</button>
     <p>{props.playlistName}</p>
   </div>

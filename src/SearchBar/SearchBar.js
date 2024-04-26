@@ -6,19 +6,16 @@ function SearchBar (props) {
     return (
     <form 
         onSubmit={props.onSubmit}
-        id={styles.searchBarForm}
-       /*  method="POST" 
-        action="#" */ >
-        <label htmlFor="search">
+        id={styles.searchBarForm}>
         <input
             type="search"
             aria-label="song search field"
-            id={styles.songSearchField}
+            className={styles.songSearchField}
             placeholder="enter a song title"
             name="song"
             onChange={props.onChange}
             value={props.searchImput}
-             /></label>
+             />
 
         <button 
             id={styles.songSearchSubmit}
@@ -40,5 +37,3 @@ function SearchBar (props) {
     )
 }
 export default SearchBar;
-
-
