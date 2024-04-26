@@ -5,10 +5,6 @@ function SearchBar (props) {
 
     return (
     <form 
-<<<<<<< HEAD
-=======
-        role="form"
->>>>>>> 997bb0bf4888dcb62ca0989d958ad8ef917a2410
         onSubmit={props.onSubmit}
         id={styles.searchBarForm}
        /*  method="POST" 
@@ -16,13 +12,8 @@ function SearchBar (props) {
         <label htmlFor="search">
         <input
             type="search"
-<<<<<<< HEAD
             aria-label="song search field"
             id={styles.songSearchField}
-=======
-            id="search"
-            className={styles.songSearchField}
->>>>>>> 997bb0bf4888dcb62ca0989d958ad8ef917a2410
             placeholder="enter a song title"
             name="song"
             onChange={props.onChange}
@@ -32,12 +23,8 @@ function SearchBar (props) {
         <button 
             id={styles.songSearchSubmit}
             type="submit"
-<<<<<<< HEAD
             aria-label="submit"
             alt="submit">
-=======
-            aria-label="search button">
->>>>>>> 997bb0bf4888dcb62ca0989d958ad8ef917a2410
                 <svg 
                     id={styles.songSearchSubmitSVG}
                     xmlns="http://www.w3.org/2000/svg" 
