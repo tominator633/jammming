@@ -83,6 +83,8 @@ const sendPlaylist = () => {
   const urisArr = gatherPlaylistUri();
   Spotify.addTracksToNewPlaylist(playlistName,urisArr);
 }
+
+//SearchBar handlers
 const handleSearchBarChange = (event) => {
   setSearchImput(event.target.value);
 }
@@ -90,7 +92,14 @@ const handleSearchBarSubmit = (event) => {
   event.preventDefault();
   search();
 }
-
+//Playlist handlers
+const handlePlaylistNameChange = (event) => {
+  setPlaylistName(event.target.value);
+}
+const handlePlaylistButtonClick = () => {
+  sendPlaylist();
+  emptyTracklist();
+}
 
   return (
     <>
@@ -106,11 +115,11 @@ const handleSearchBarSubmit = (event) => {
                       />
 
       <Playlist playlistName={playlistName} 
-                setPlaylistName={setPlaylistName}
+                onChange={handlePlaylistNameChange}
+                onClick={handlePlaylistButtonClick}
                 tracklist={tracklist}
                 removeTrack={removeTrack}
-                sendPlaylist={sendPlaylist}
-                emptyTracklist={emptyTracklist}
+          
              
                
                 />
