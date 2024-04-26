@@ -8,6 +8,7 @@ return (
     <div id={styles.playlistCON}>
     <input id={styles.playlistName} 
             type="text"
+            aria-label="name your playlist"
             placeholder="name your playlist"
             onChange={props.onChange}
             value={props.playlistName}
@@ -29,7 +30,6 @@ return (
     <button id={styles.savePlaylist}
             onClick={props.onClick}
     >Save to Spotify</button>
-    <p>{props.playlistName}</p>
   </div>
 )
 }
