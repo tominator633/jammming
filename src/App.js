@@ -119,9 +119,6 @@ const handlePlaylistButtonClick = () => {
                 onClick={handlePlaylistButtonClick}
                 tracklist={tracklist}
                 removeTrack={removeTrack}
-          
-             
-               
                 />
     </section>
     
