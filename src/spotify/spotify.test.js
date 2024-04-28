@@ -8,7 +8,7 @@ const mockToken = 'mock-token';
 
 describe("Spotify", () => {
 
-    describe(".getSongs()", () => {
+     describe(".getSongs()", () => {
         it("gets a list of songs from Spotify API based on user's request", async () => {
         //ARRANGE
         const expectedMockSongList = [
@@ -36,21 +36,29 @@ describe("Spotify", () => {
                     items: [
                         {
                             name: "Dinero",
-                            artist: "Trinidad Cardona",
-                            album: "Dinero",
+                            artists: [
+                                {name: "Trinidad Cardona"}
+                            ],
+                            album: {
+                                name: "Dinero",
+                                images: [{url: "https://i.scdn.co/image/ab67616d0000b27338c99f64fec0cfebda3bfb6f"}]
+                            },
                             id: "3ggtU1ZOKO8ZNiqPNyXGcm",
-                            uri: "spotify:track:3ggtU1ZOKO8ZNiqPNyXGcm",
-                            img: "https://i.scdn.co/image/ab67616d0000b27338c99f64fec0cfebda3bfb6f"
+                            uri: "spotify:track:3ggtU1ZOKO8ZNiqPNyXGcm"
                         },
                         {
                             name: "Dinero",
-                            artist: "Jennifer Lopez",
-                            album: "Dinero",
+                            artists: [
+                                {name: "Jennifer Lopez"}
+                            ],
+                            album: {
+                                name: "Dinero",
+                                images: [{url: "https://i.scdn.co/image/ab67616d0000b2734a729ab5bbf4ce1d75c849d9"}]
+                            },
                             id: "22mQXNE0nCuWq4yOwcadIn",
-                            uri: "spotify:track:22mQXNE0nCuWq4yOwcadIn",
-                            img: "https://i.scdn.co/image/ab67616d0000b2734a729ab5bbf4ce1d75c849d9"
+                            uri: "spotify:track:22mQXNE0nCuWq4yOwcadIn"
                         }
-                    ]
+                    ],
                 }
             })
         };
@@ -69,6 +77,33 @@ describe("Spotify", () => {
           });
         expect(actualSongList).toEqual(expectedMockSongList);
         });
+
+        it('handles errors from Spotify API (getSongs)', async () => {
+            //ARRANGE
+            // Mock Spotify.getAccessToken to return the mock token
+            Spotify.getAccessToken = jest.fn(() => mockToken);
+            // Set up the fetch mock to return an error response
+            fetch.mockRejectedValueOnce(new Error('Request for songs not successful'));
+            
+            
+            //ACT
+            // Call the getSongs method
+            const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+            const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
+            await Spotify.getSongs("dinero");
+            
+            
+            //ASSERT
+            // Assert that fetch is called with the correct URL and headers
+            expect(fetch).toHaveBeenCalledWith("https://api.spotify.com/v1/search?q=dinero&type=track", {
+              headers: {
+                Authorization: `Bearer ${mockToken}`,
+              },
+            });
+            // Assert that the console.log and window.alert are called with the correct error message
+            expect(consoleSpy).toHaveBeenCalledWith(new Error('Request for songs not successful'));
+            expect(alertSpy).toHaveBeenCalledWith(new Error('Request for songs not successful'));
+          });
     });
 
 
@@ -107,15 +142,9 @@ describe("Spotify", () => {
           //that the returned user ID matches the mock user ID
           expect(actualUserId).toBe(expectedMockUserId);
         });
-      
-
-
-
-
+    
 
         it('handles errors from Spotify API', async () => {
-          // Mock token
-          const mockToken = 'mock-token';
       
           // Mock Spotify.getAccessToken to return the mock token
           Spotify.getAccessToken = jest.fn(() => mockToken);
