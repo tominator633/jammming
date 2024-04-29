@@ -78,12 +78,13 @@ describe("Spotify", () => {
         expect(actualSongList).toEqual(expectedMockSongList);
         });
 
-        it('handles errors from Spotify API (getSongs)', async () => {
+        it('handles errors from Spotify API with message: Request for songs not successful', async () => {
             //ARRANGE
+            const mockErrorMessage = "Request for songs not successful"
             // Mock Spotify.getAccessToken to return the mock token
             Spotify.getAccessToken = jest.fn(() => mockToken);
             // Set up the fetch mock to return an error response
-            fetch.mockRejectedValueOnce(new Error('Request for songs not successful'));
+            fetch.mockRejectedValueOnce(new Error(mockErrorMessage));
             
             
             //ACT
@@ -101,8 +102,8 @@ describe("Spotify", () => {
               },
             });
             // Assert that the console.log and window.alert are called with the correct error message
-            expect(consoleSpy).toHaveBeenCalledWith(new Error('Request for songs not successful'));
-            expect(alertSpy).toHaveBeenCalledWith(new Error('Request for songs not successful'));
+            expect(consoleSpy).toHaveBeenCalledWith(new Error(mockErrorMessage));
+            expect(alertSpy).toHaveBeenCalledWith(new Error(mockErrorMessage));
           });
     });
 
@@ -144,31 +145,129 @@ describe("Spotify", () => {
         });
     
 
-        it('handles errors from Spotify API', async () => {
+        it('handles errors from Spotify API with message: Request for user ID not successful', async () => {
       
-          // Mock Spotify.getAccessToken to return the mock token
+          //ARRANGE
           Spotify.getAccessToken = jest.fn(() => mockToken);
-      
-          // Set up the fetch mock to return an error response
           fetch.mockRejectedValueOnce(new Error('Request for user ID not successful'));
       
-          // Call the getUserId method
+          //ACT
           const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
           const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
           await Spotify.getUserId();
       
-          // Assert that fetch is called with the correct URL and headers
+          //ASSERT
           expect(fetch).toHaveBeenCalledWith('https://api.spotify.com/v1/me', {
             headers: {
               Authorization: `Bearer ${mockToken}`,
             },
           });
-      
-          // Assert that the console.log and window.alert are called with the correct error message
           expect(consoleSpy).toHaveBeenCalledWith(new Error('Request for user ID not successful'));
           expect(alertSpy).toHaveBeenCalledWith(new Error('Request for user ID not successful'));
         });
       });
+
+      describe(".createSpotifyPlaylist()", () => {
+        it("posts a new public playlist in user's Spotify account and returns that playlist's ID", async () => {
+            //ARRANGE
+            Spotify.getUserId = jest.fn(() => "9876");
+            Spotify.getAccessToken = jest.fn(() => mockToken);
+            const mockResponse = {
+                ok: true,
+                json: () => Promise.resolve({id: "ABCD345"})
+            }
+            fetch.mockResolvedValueOnce(mockResponse);
+            const expectedMockPlaylistId = "ABCD345";
+
+            
+            //ACT
+            const actualMockPlaylistId = await Spotify.createSpotifyPlaylist("My Dinero Playlist");
+            //ASSERT
+            expect(actualMockPlaylistId).toBe(expectedMockPlaylistId);
+            expect(fetch).toHaveBeenCalledWith("https://api.spotify.com/v1/users/9876/playlists", {
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer " + mockToken,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: "My Dinero Playlist",
+                  description: "created with Jammming",
+                })
+            });
+        });
+        it("handles errors from Spotify API with message: Playlist not created. Request error.", async () => {
+            //ARRANGE
+            const mockErrorMessage = "Playlist not created. Request error.";
+            Spotify.getAccessToken = jest.fn(() => mockToken);
+            fetch.mockRejectedValueOnce(new Error(mockErrorMessage));
+            //ACT
+            const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+            const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
+            await Spotify.createSpotifyPlaylist("My Dinero Playlist");
+            //ASSERT
+            expect(consoleSpy).toHaveBeenCalledWith(new Error(mockErrorMessage));
+            expect(alertSpy).toHaveBeenCalledWith(new Error(mockErrorMessage));
+            expect(fetch).toHaveBeenCalledWith("https://api.spotify.com/v1/users/9876/playlists", {
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer " + mockToken,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: "My Dinero Playlist",
+                  description: "created with Jammming",
+                })
+            });
+        })
+      });
+
+      describe(".addTracksToNewPlaylist", () => {
+        it("adds tracks to the newly created playlist", async () => {
+            //ARRANGE
+            const mockPlaylistName = "My Dinero Playlist";
+            const mockUrisArr = ["spotify:track:3ggtU1ZOKO8ZNiqPNyXGcm","spotify:track:22mQXNE0nCuWq4yOwcadIn"];
+            Spotify.getAccessToken = jest.fn(() => mockToken);
+            Spotify.createSpotifyPlaylist = jest.fn(() => "ABCD345");
+            const mockResponse = {
+                ok: true,
+                json: () => Promise.resolve({})
+            }
+            fetch.mockResolvedValueOnce(mockResponse);
+            //ACT
+            await Spotify.addTracksToNewPlaylist(mockPlaylistName, mockUrisArr);
+            const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
+            //ASSERT
+
+            expect(fetch).toHaveBeenCalledWith("https://api.spotify.com/v1/playlists/ABCD345/tracks", {
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer " + mockToken,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    uris: mockUrisArr
+                })
+            });
+            
+            expect(alertSpy).toHaveBeenCalledWith("Playlist created :)");
+
+        });
+        it("handles errors from Spotify API with message: The addition of tracks failed", async () => {
+            //ARRANGE
+            const mockPlaylistName = "My Dinero Playlist";
+            const mockUrisArr = ["spotify:track:3ggtU1ZOKO8ZNiqPNyXGcm","spotify:track:22mQXNE0nCuWq4yOwcadIn"];
+            const mockErrorMessage = "The addition of tracks failed";
+            fetch.mockRejectedValueOnce(new Error(mockErrorMessage));
+            //ACT
+            const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+            const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
+            await Spotify.addTracksToNewPlaylist(mockPlaylistName, mockUrisArr);
+            //ASSERT
+            expect(consoleSpy).toHaveBeenCalledWith(new Error(mockErrorMessage));
+            expect(alertSpy).toHaveBeenCalledWith(new Error(mockErrorMessage));
+        });
+      })
 })
 
 
