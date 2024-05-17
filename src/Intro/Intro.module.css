@@ -66,6 +66,7 @@
     width: 90%;
     text-align: center;
     color: #134B1D;
+    padding-bottom: 100px;
   }
 
   @media only screen and (max-width: 600px) {
