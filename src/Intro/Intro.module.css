@@ -1,0 +1,75 @@
+
+/* 
+ .getBor {
+  border: 2px solid orange;
+}    */
+ 
+
+
+
+
+#introCON {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 80px;
+    font-family: "Anta", sans-serif;
+  } 
+
+
+
+  #intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #134B1D;
+    padding: 30px;
+    border-radius: 32px;
+  }
+
+
+  #instructions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding-bottom: 30px;
+    color: #D8E7B7;
+  }
+  #instructions p {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+
+  #spotifyLogo {
+    width: 300px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #spotifyLogo img {
+    width: 100%;
+
+  }
+
+
+#introMessage {
+    font-size: 30px;
+    padding-top: 60px;
+    width: 90%;
+    text-align: center;
+    color: #134B1D;
+  }
+
+  @media only screen and (max-width: 600px) {
+    #intro  {
+        width: 95%;
+    }
+}

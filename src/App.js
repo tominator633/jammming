@@ -1,4 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import Intro from './Intro/Intro';
 import SearchBar from './SearchBar/SearchBar';
 import SearchResults from './SearchResults/SearchResults';
 import Playlist from './Playlist/Playlist';
@@ -81,10 +82,9 @@ const handlePlaylistButtonClick = () => {
   sendPlaylist();
   emptyTracklist();
 }
-//Track handlers
 
 
-
+if (results.length>0) {
   return (
     <>
     <SearchBar onChange={handleSearchBarChange}
@@ -94,6 +94,7 @@ const handlePlaylistButtonClick = () => {
 
     <section id={styles.resultsPlaylistCON}
               className={styles.getBor}>
+
       <SearchResults results={results} 
                      addTrack={addTrack}
                       />
@@ -108,6 +109,18 @@ const handlePlaylistButtonClick = () => {
     
 </>
   );
+} else {
+  return (
+    <>
+    <SearchBar onChange={handleSearchBarChange}
+                onSubmit={handleSearchBarSubmit}
+                searchImput={searchImput}
+               />
+    <Intro/>
+</>
+  );
+}
+
 }
 
 export default App;
