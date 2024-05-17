@@ -5,7 +5,8 @@ import Track from "../Track/Track";
 
 function SearchResults (props) {
 return (
-    <div id={styles.resultsCON}>
+    <div id={styles.resultsCON}
+    className={styles.getBor}>
     <h2>Results</h2>
      {props.results.map((song) => {
      return  <Track  name={song.name}

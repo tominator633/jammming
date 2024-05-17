@@ -1,3 +1,12 @@
+
+
+/* .getBor {
+  border: 2px solid orange;
+}   */
+
+
+
+
 #playlistCON {
     width: 500px;
     text-align: center;
@@ -36,5 +45,23 @@
     font-size: 18px;
     cursor: pointer;
     color: #2aab41;
+    margin-bottom: 30px;
   
   }
+
+
+  @media only screen and (max-width: 1020px) {
+    #playlistCON {
+      width: 350px;
+    }
+  }
+  
+   @media only screen and (max-width: 730px) {
+    #playlistCON {
+      width: 95%;
+      margin-top: 100px;
+    }
+    #playlistName {
+      font-size: 20px;
+    }
+  } 

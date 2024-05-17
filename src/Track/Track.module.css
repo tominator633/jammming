@@ -1,3 +1,9 @@
+
+/* .getBor {
+  border: 2px solid orange;
+}   */
+
+
 #track {
     width: 100%;
     height: 80px;
@@ -32,16 +38,17 @@
     justify-content: center;
     font-family: "Anta", sans-serif;
     color: #d8e7b7;
+    text-align: center;
     
   }
   
   #trackName {
-    font-size: 17px;
+    font-size: 15px;
     color: white;
   }
   
   #artistAlbum {
-    font-size: 15px;
+    font-size: 13px;
   }
   
   #btn {
@@ -57,3 +64,22 @@
     cursor: pointer;
     border: none;
   }
+
+
+   @media only screen and (max-width: 510px) {
+    #track {
+      height: 60px;
+    }
+    #trackName {
+      font-size: 12px;
+      color: white;
+    }
+    
+    #artistAlbum {
+      font-size: 10px;
+    }
+    #cover {
+      width: 50px;
+      height: 50px;
+    }
+  } 

@@ -5,7 +5,8 @@ import Track from "../Track/Track";
 function Playlist (props) {
 
 return (
-    <div id={styles.playlistCON}>
+    <div id={styles.playlistCON}
+        className={styles.getBor}>
     <input id={styles.playlistName} 
             type="text"
             aria-label="name your playlist"

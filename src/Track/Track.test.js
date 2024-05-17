@@ -41,7 +41,7 @@ expect(albumName).toBeInTheDocument();
 expect(coverPhoto).toBeInTheDocument();
 });
 
-it("enables user to add the track to their playlist", () => {
+it("Calls the addTrack() function when a user wants to add track to their playlist", () => {
     const mockAddTrack = jest.fn();
     const mockRemoveTrack = jest.fn();
     render(songsMockArr.map((songMock) => {
@@ -60,7 +60,7 @@ it("enables user to add the track to their playlist", () => {
     userEvent.click(addButton);
     expect(mockAddTrack).toHaveBeenCalled();
 });
-it("enables user to remove the track from their playlist", () => {
+it("Calls the removeTrack() function when a user wants to remove track from their playlist", () => {
     const mockAddTrack = jest.fn();
     const mockRemoveTrack = jest.fn();
     render(songsMockArr.map((songMock) => {
@@ -79,3 +79,4 @@ it("enables user to remove the track from their playlist", () => {
     userEvent.click(addButton);
     expect(mockRemoveTrack).toHaveBeenCalled();
 });
+
