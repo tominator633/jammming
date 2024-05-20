@@ -6,7 +6,7 @@ import Playlist from './Playlist/Playlist';
 import styles from "./App.module.css";
 import Spotify from './spotify/spotify';
 import { accessToken } from './spotify/spotify';
-import { eventWrapper } from '@testing-library/user-event/dist/utils';
+
 
 
 function App() {
@@ -25,12 +25,14 @@ useEffect(() => {
 const addTrack = (track) => {
 if (!tracklist.includes(track)) {
   setTracklist((prev) => [...prev, track]);
+  setResults((prev) => prev.filter((resultSong) => resultSong !== track));
 }
 }
 
 function removeTrack (track) {
 if (tracklist.includes(track)) {
   setTracklist((prev) => prev.filter((song) => song !== track));
+  setResults((prev) => [track, ...prev]);
 }
 }
 
@@ -42,7 +44,11 @@ const emptyTracklist = () => {
 }
 
 const search = useCallback (() => {
- Spotify.getSongs(searchImput).then((arr) => setResults(arr));
+  if (searchImput) {
+    Spotify.getSongs(searchImput).then((arr) => setResults(arr));
+  } else {
+    alert("Start by typing into the search field")
+  }
 },[searchImput]);
 /* THIS WORKS:
 const search = () => {
@@ -79,12 +85,21 @@ const handlePlaylistNameChange = (event) => {
   setPlaylistName(event.target.value);
 }
 const handlePlaylistButtonClick = () => {
-  sendPlaylist();
-  emptyTracklist();
+  if (tracklist.length && playlistName) {
+    sendPlaylist();
+    emptyTracklist();
+  } else if (!playlistName && tracklist.length) {
+    alert("Give your playlist a name.");
+  } else if (playlistName && !tracklist.length) {
+    alert("Add at least one song to your new playlist.");
+  } else {
+    alert("Give your playlist a name and add at least one song to your new playlist.")
+  }
+  
 }
 
 
-if (results.length>0) {
+if (results.length || tracklist.length) {
   return (
     <>
     <SearchBar onChange={handleSearchBarChange}

@@ -1,9 +1,6 @@
 import React from "react";
 import styles from "./Intro.module.css";
 
-
-
-
 function Intro (props) {
 
 return (
@@ -13,7 +10,7 @@ return (
             id={styles.intro}>
         <section className={styles.getBor} 
                 id={styles.instructions}>
-            <p className={styles.getBor}>1. Search for any song 
+            <p className={styles.getBor}>1. Search for anything 
                 you like in the Spotify database.</p>
             <p className={styles.getBor}>2. Add songs to your new playlist</p>
             <p className={styles.getBor}>3. Save the playlist to your Spotify account</p>
@@ -29,7 +26,7 @@ return (
         </section>
         </div>
         <h3 className={styles.getBor}
-            id={styles.introMessage}>Start by typing a song name into the search field and pressing play button!</h3>
+            id={styles.introMessage}>Start by typing into the search field and pressing play button!</h3>
         
        
     </div>
