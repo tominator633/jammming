@@ -1,8 +1,9 @@
 import React from "react";
 import Track from "./Track";
-import {render, screen, waitFor} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
+
 
 const songsMockArr = [
     {
@@ -80,3 +81,10 @@ it("Calls the removeTrack() function when a user wants to remove track from thei
     expect(mockRemoveTrack).toHaveBeenCalled();
 });
 
+
+
+
+it("renders correctly the button", () => {
+    render(<Button/>);
+    const btn = screen.getByRole("button", {name: /checkout/i})
+})

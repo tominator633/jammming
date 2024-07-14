@@ -1,7 +1,7 @@
-import React from "react";
+
 import styles from "./Intro.module.css";
 
-function Intro (props) {
+function Intro () {
 
 return (
 
@@ -34,3 +34,6 @@ return (
     }
     
     export default Intro;
+
+
+    

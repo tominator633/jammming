@@ -19,7 +19,6 @@ function SearchBar (props) {
             value={props.searchImput}
 
              />
-
         <button 
             id={styles.songSearchSubmit}
             className={styles.getBor}
