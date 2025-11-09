@@ -1,6 +1,7 @@
 # Jammming
 
 Jammming is a react application run directly on a web browser and allows you to search for songs in the Spotify database based on a given keyword or a keyphrase. Consequently, you can add those songs to a newly created playlist directly in Jammming app and export it to your Spotify account.
+![Image](./public/jammmingLarge.png)
 
 > if you want to learn more about Spotify streaming and podcasting service, [click here](https://en.wikipedia.org/wiki/Spotify).
 
